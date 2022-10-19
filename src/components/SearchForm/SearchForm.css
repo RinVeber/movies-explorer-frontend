@@ -3,7 +3,7 @@
 }
 
 .search-form__form {
-    margin-bottom: 42px;
+    margin-bottom: 0px;
 }
 
 .search-form__input-wrap {
@@ -45,7 +45,7 @@
 .search-form__line {
     border-bottom: 1px solid #E8E8E8;
     margin-top: 13px;
-    margin: 70px 0 10px;
+    margin: 13px 0 10px;
     height: 1px;
 }
 

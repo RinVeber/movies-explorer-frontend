@@ -10,7 +10,7 @@ function MoviesCard({ isLiked, image }) {
           <img
             className="movies-card__image"
             src={image}
-            alt="Тут должен быть постер фильма, похоже что-то пошло не так."
+            alt="Тут должны быть картинки, но что то пошло не так"
           />
         </div>
         <div className="movies-card__info-container">

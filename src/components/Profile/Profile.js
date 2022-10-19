@@ -43,10 +43,10 @@ function Profile() {
             />
           </fieldset>
         </form>
-        <button className="profile__edit-btn buttton" type="submit">
+        <button className="profile__edit-btn button" type="submit">
           Редактировать
         </button>
-        <button className="profile__sign-out-btn buttton" type="button">Выйти из аккаунта</button>
+        <button className="profile__sign-out-btn button" type="button">Выйти из аккаунта</button>
       </section>
     </main>
   );
