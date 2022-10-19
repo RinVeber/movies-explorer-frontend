@@ -1,0 +1,9 @@
+.registr__form-container_type_login {
+    margin-bottom: 220px;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .registr__form-container_type_login {
+      margin-bottom: 309px;
+    }
+  }

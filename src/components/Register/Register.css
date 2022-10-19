@@ -1,0 +1,150 @@
+.registr {
+    width: 100%;
+    padding: 70px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .registr__container {
+    width: 396px;
+  }
+  
+  .registr__title {
+    margin: 40px 0;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+  }
+  
+  .registr__form-container {
+    margin-bottom: 24px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    position: relative;
+  }
+  
+  .registr__form-container:nth-child(3) {
+    margin-bottom: 134px;
+  }
+  
+  .registr__input-label {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #a0a0a0;
+  }
+  
+  .registr__input {
+    padding: 5px 5px 10px;
+    border: none;
+    outline-color: #3456f3;
+    border-bottom: 1px solid #e8e8e8;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  
+  .registr__input-error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ff3055;
+    position: absolute;
+    left: 1px;
+    top: 44px;
+  }
+  
+  .registr__register-error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ff3055;
+    position: absolute;
+    left: 1px;
+    top: 60px;
+  }
+  
+  .registr__btn {
+    width: 396px;
+    height: 45px;
+    border-radius: 3px;
+    background-color: #3456F3;
+    color: #fff;
+  }
+  
+  .registr__btn_type_inactive {
+    opacity: .4;
+    background: #3456F3;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: none;
+  }
+  
+  .registr__signin {
+    padding-top: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .registr__reg-question {
+    margin: 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #a0a0a0;
+  }
+  
+  .registr__login-link {
+    margin-left: 6px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3456f3;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .registr {
+      padding: 56px 0 30px;
+    }
+  
+    .registr__title-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .registr__container {
+      width: 260px;
+    }
+  
+    .registr__title {
+      margin: 50px 0 80px;
+    }
+  
+    .registr__form-container:nth-child(3) {
+      margin-bottom: 222px;
+    }
+  
+    .registr__btn {
+      width: 260px;
+      font-size: 12px;
+      line-height: 15px;
+    }
+  
+    .registr__reg-question {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  
+    .registr__login-link {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }
