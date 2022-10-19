@@ -12,9 +12,10 @@ function SavedMovies() {
       <SearchForm />
       {/* <Preloader /> */}
       <div className="movies-card-list__container">
-        <MoviesCard isSaved={true} image={image1} />
-        <MoviesCard isSaved={true} image={image2} />
-        <MoviesCard isSaved={false} image={image3} />
+      <MoviesCard isLiked={true} name={'В погоне за Бенкси'} image={image1} />
+          <MoviesCard isLiked={true} name={'Банксия'} image={image2} />
+          <MoviesCard isLiked={false} name={'Джинкс'} image={image3} />
+
       </div>
       <div className="more-movies-card"></div>
     </section>

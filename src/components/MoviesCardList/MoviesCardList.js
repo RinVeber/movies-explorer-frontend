@@ -9,10 +9,10 @@ function MoviesCardList() {
     return (
       <section className="movies-card-list">
         <div className="movies-card-list__container">
-          <MoviesCard isLiked={true} image={image1} />
-          <MoviesCard isLiked={true} image={image2} />
-          <MoviesCard isLiked={false} image={image3} />
-          <MoviesCard isLiked={false} image={image4} />
+          <MoviesCard isLiked={true} name={'В погоне за Бенкси'} image={image1} />
+          <MoviesCard isLiked={true} name={'Банксия'} image={image2} />
+          <MoviesCard isLiked={false} name={'Джинкс'} image={image3} />
+          <MoviesCard isLiked={false} name={'Сакура'} image={image4} />
 
           </div>
       <div className="more-movies-card">

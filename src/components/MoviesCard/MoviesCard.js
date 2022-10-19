@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
-function MoviesCard({ isLiked, image }) {
+function MoviesCard({ isLiked, image, name }) {
   const isLikedMoviesRoute = useRouteMatch({ path: '/saved-movies', exact: false });
   return (
     <>
@@ -15,7 +15,7 @@ function MoviesCard({ isLiked, image }) {
         </div>
         <div className="movies-card__info-container">
             <div className="moives-card__info-text">
-          <h2 className="movies-card__title">В погоне за Бенкси</h2>
+          <h2 className="movies-card__title">{name}</h2>
           <p className="movies-card__duration">1ч 47м</p>
           </div>
           <button

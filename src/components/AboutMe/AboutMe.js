@@ -1,4 +1,4 @@
-import foto from "../../images/profile.jpg";
+import foto from "../../images/profile.png";
 
 function AboutMe() {
   return (
