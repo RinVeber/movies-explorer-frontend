@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import icon from '../../images/icon_acc.png';
 
 function Navigation({ isMenuOpen }) {
   const isMovies = useRouteMatch({ path: '/movies', exact: false });
@@ -26,6 +27,9 @@ function Navigation({ isMenuOpen }) {
         </div>
         <Link className="navigation__profile-link" to="/profile">
           <button className="navigation__profile-btn button" type="button">Аккаунт</button>
+          <div className="navigation__profile-icon-container"> 
+          <img src={icon} alt="иконка" className="navigation__profile-icon" />
+          </div>
         </Link>
       </div>
     </nav>
