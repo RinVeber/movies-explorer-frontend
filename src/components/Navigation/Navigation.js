@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import icon from '../../images/icon_acc.png';
+import icon from '../../images/icon_acc.svg';
 
 function Navigation({ isMenuOpen }) {
   const isMovies = useRouteMatch({ path: '/movies', exact: false });

@@ -1,6 +1,7 @@
 .about-project {
     padding: 110px 70px;
     margin: 0;
+    background-color: #FAFAFA;
   }
   
 .description {
@@ -53,6 +54,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .time__week-text-color {
+    color: #FFFFFF;
   }
   
   .time__week-text {

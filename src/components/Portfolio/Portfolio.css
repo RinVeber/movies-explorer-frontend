@@ -9,7 +9,10 @@
     line-height: 20px;
     color: #a0a0a0;
   }
-  
+  .portfolio__list{
+    list-style-type: none;
+    padding: 0;
+  }
   .portfolio__links {
     list-style: none;
     padding: 0;
@@ -43,9 +46,11 @@
   
   @media screen and (max-width: 768px) {
     .portfolio {
-      padding: 0 14px 70px;
+      padding: 0 50px 70px;
     }
-  
+    .portfolio__list {
+      padding-left: 0;
+    }
     .portfolio__title {
       margin-bottom: 40px;
       font-size: 14px;
@@ -59,5 +64,11 @@
   
     .portfolio__link-arrow {
       height: 14px;
+    }
+  }
+
+  @media screen and (max-width: 385px) { 
+    .portfolio {
+      padding: 0 14px 70px;
     }
   }

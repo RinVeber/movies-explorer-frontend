@@ -29,7 +29,7 @@ function AboutProject() {
       <div className="time">
         <div className="time__back-week-container">
           <div className="time__back-week">
-            <p className="time__week-text">1 неделя</p>
+            <p className="time__week-text time__week-text-color">1 неделя</p>
           </div>
           <p className="time__caption">Back-end</p>
         </div>

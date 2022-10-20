@@ -51,8 +51,9 @@
   .movies-card__image-container {
     height: 200px;
     margin-bottom: 18px;
-    background-color: #000;
+    
     margin: 0;
+
   }
   .movies-card__image {
     width: 100%;
@@ -64,17 +65,17 @@
   .movies-card__btn {
     width: 30px;
     height: 30px;
-    background: url('../../images/not-like.png') center no-repeat;
+    background: url('../../images/not-like.svg') center no-repeat;
   }
   
   .movies-card__btn_type_like {
-    background: url('../../images/like.png') center no-repeat;
+    background: url('../../images/like.svg') center no-repeat;
     padding-right: 15px;
   }
   
   .movies-card__btn_type_close {
     opacity: 0;
-    background: url('../../images/close.png') center  no-repeat;
+    background: url('../../images/close_2.svg') center  no-repeat;
   }
   
   @media screen and (max-width: 1200px) {

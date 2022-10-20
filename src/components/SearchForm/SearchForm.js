@@ -29,7 +29,7 @@ function SearchForm({ onSearchMovie }) {
                         onChange={handleChangeNameMovie}
                         value={nameMovie}
                         type="text"
-                        placeholder="Фильмы"
+                        placeholder="Фильм"
                         name="nameMovie"
                         minLength="1"
                         maxLength="100"
@@ -39,6 +39,7 @@ function SearchForm({ onSearchMovie }) {
                         <p className="search-form__btn-text">Найти</p>
                         </button>
                 </div>
+               
             </form>
             <div className="search-form__line"></div>
             <CheckBox />

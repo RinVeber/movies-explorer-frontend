@@ -1,4 +1,4 @@
-import arrow from "../../images/arrow.png";
+import arrow from "../../images/arrow.svg";
 
 function Portfolio() {
   return (
@@ -8,7 +8,7 @@ function Portfolio() {
         <li className="portfolio__list-item portfolio__link_type_underline">
           <a
             className="portfolio__link link"
-            href="https://rin_Veber.github.io/how-to-learn"
+            href="https://github.com/RinVeber/how-to-learn"
             target="_blank"
             rel="noreferrer"
           >
@@ -19,7 +19,7 @@ function Portfolio() {
         <li className="portfolio__list-item portfolio__link_type_underline">
           <a
             className="portfolio__link link"
-            href="https://rin_Veber.github.io/russian-travel"
+            href="https://github.com/RinVeber/russian-travel"
             target="_blank"
             rel="noreferrer"
           >
@@ -30,7 +30,7 @@ function Portfolio() {
         <li className="portfolio__list-item">
           <a
             className="portfolio__link link"
-            href="https://rin_Veber.github.io/mesto/"
+            href="https://github.com/RinVeber/mesto"
             target="_blank"
             rel="noreferrer"
           >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Link, Switch, useRouteMatch } from 'react-router-dom';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.svg';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Navigation from '../Navigation/Navigation';
 

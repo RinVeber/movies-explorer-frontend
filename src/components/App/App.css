@@ -1,12 +1,12 @@
 .body {
-    background-color: #fff;
+  background-color: #FAFAFA;
   }
   
   .page {
     min-width: 320px;
     max-width: 1280px;
     margin: auto;
-    background-color: #fff;
+    background-color: #FAFAFA;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
