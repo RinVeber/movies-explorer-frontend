@@ -108,6 +108,15 @@
     line-height: 17px;
     color: #3456f3;
   }
+  .registr__auth-error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 12px;
+    color: #ff3055;
+    position: absolute;
+    left: 1px;
+    top: 60px;
+  }
   
   @media screen and (max-width: 500px) {
     .registr {

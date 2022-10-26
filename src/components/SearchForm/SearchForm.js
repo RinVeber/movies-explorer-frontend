@@ -1,24 +1,31 @@
 import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
+import { searchError } from '../../utils/constants';
 
-function SearchForm({ onSearchMovie }) {
-    const [nameMovie, setNameMovie] = React.useState('');
-
-    function handleChangeNameMovie(evt) {
-        setNameMovie(evt.target.value);
-    }
-
-    function onSearchMovie(data) {
-        console.log(data);
-    }
+function SearchForm({ onSearchMovie, onFilterShortMovies }) {
+    const { values, handleChange, isValid, resetForm } = useFormWithValidation();
+    const { name } = values;
+    const [searchErrorMessage, setSearchErrorMessage] = React.useState(null);
 
     function handleSubmit(evt) {
         evt.preventDefault();
-
-        onSearchMovie({
-            nameMovie: nameMovie,
-        });
+        if (isValid && name !== '') {
+            onSearchMovie({
+                movieName: name,
+            });
+            setSearchErrorMessage(null)
+        } else {
+            setSearchErrorMessage(searchError);
+        }
     }
+
+    React.useEffect(() => {
+        return () => {
+            setSearchErrorMessage(null)
+            resetForm();
+        };
+    }, []);
 
     return (
         <section className="search-form">
@@ -26,23 +33,25 @@ function SearchForm({ onSearchMovie }) {
                 <div className="search-form__input-wrap">
                     <input
                         className="search-form__input"
-                        onChange={handleChangeNameMovie}
-                        value={nameMovie}
+                        value={name || ''}
+                        onChange={handleChange}
                         type="text"
                         placeholder="Фильм"
-                        name="nameMovie"
+                        name="name"
                         minLength="1"
                         maxLength="100"
                         required
                     />
                     <button className="search-form__btn button" type="submit">
                         <p className="search-form__btn-text">Найти</p>
-                        </button>
+                    </button>
                 </div>
-               
+                <span className="search-form__search-error">
+                    {searchErrorMessage ? `${searchErrorMessage}` : ''}
+                </span>
             </form>
             <div className="search-form__line"></div>
-            <CheckBox />
+            <CheckBox onFilterShortMovies={onFilterShortMovies} />
         </section>
     );
 }

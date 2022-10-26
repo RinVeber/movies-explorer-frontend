@@ -1,30 +1,35 @@
 import React from 'react';
 import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import image1 from '../../images/movies-card-1.png';
-import image2 from '../../images/movies-card-2.png';
-import image3 from '../../images/movies-card-3.jpg';
-import image5 from '../../images/movies-card-5.png';
-import image6 from '../../images/movies-card-6.png';
-import image7 from '../../images/movies-card-7.png';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
-function SavedMovies() {
+function SavedMovies({
+  setSavedMovies,
+  onSearchMovie,
+  onDeleteSavedMovie,
+  onFilterShortMovies,
+  setErrorMessageSavedMovies,
+}) {
+  React.useEffect(() => {
+    return () => {
+      setErrorMessageSavedMovies(null);
+      const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedMovies'));
+      setSavedMovies(lastSavedMovies);
+    };
+  }, []);
   return (
-    <section className="movies-card-list">
-      <SearchForm />
+    <>
+    <Header />
+    
        {/* <Preloader /> */}
-      <div className="movies-card-list__container">
-      <MoviesCard isLiked={true} name={'В погоне за Бенкси'} image={image1} />
-          <MoviesCard isLiked={true} name={'Банксия'} image={image2} />
-          <MoviesCard isLiked={false} name={'Джинкс'} image={image3} />
-          <MoviesCard isLiked={true} name={'Пи-Джей Харви: A dog called money'} image={image5} />
-          <MoviesCard isLiked={false} name={'Gimme Danger: История Игги и The Stooge...'} image={image6} />
-          <MoviesCard isLiked={true} name={'Киноторговцы'} image={image7} />
-
-      </div>
-      <div className="more-movies-card"></div>
-    </section>
+       <main className="content">
+      <SearchForm onSearchMovie={onSearchMovie} onFilterShortMovies={onFilterShortMovies} />
+      <MoviesCardList  onDeleteSavedMovie={onDeleteSavedMovie} />
+    </main>
+    <Footer />
+    </>
   );
 }
 

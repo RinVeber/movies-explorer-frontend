@@ -1,29 +1,90 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import image1 from '../../images/movies-card-1.png';
-import image2 from '../../images/movies-card-2.png';
-import image3 from '../../images/movies-card-3.jpg';
-import image4 from '../../images/movies-card-4.jpg';
-import image5 from '../../images/movies-card-5.png';
-import image6 from '../../images/movies-card-6.png';
-import image7 from '../../images/movies-card-7.png';
+import Preloader from '../Preloader/Preloader';
+import useWindowSize from '../../hooks/useWindowSize';
+import { AppContext } from '../../context/AppContext';
 
-function MoviesCardList() {
-    return (
-      <section className="movies-card-list">
-        <div className="movies-card-list__container">
-          <MoviesCard isLiked={true} name={'В погоне за Бенкси'} image={image1} />
-          <MoviesCard isLiked={true} name={'Банксия'} image={image2} />
-          <MoviesCard isLiked={false} name={'Джинкс'} image={image3} />
-          <MoviesCard isLiked={false} name={'Сакура'} image={image4} />
-          <MoviesCard isLiked={true} name={'Пи-Джей Харви: A dog called money'} image={image5} />
-          <MoviesCard isLiked={false} name={'Gimme Danger: История Игги и The Stooge...'} image={image6} />
-          <MoviesCard isLiked={true} name={'Киноторговцы'} image={image7} />
+function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
+  const isSavedMoviesRoute  = useRouteMatch({ path: '/saved-movies', exact: false });
+  const isMoviesRoute = useRouteMatch({ path: '/movies', exact: false });
+  const { moviesCards, isCardsLoading, errorMessageMovies, errorMessageSavedMovies, savedMovies } =
+    React.useContext(AppContext);
+  const width = useWindowSize();
 
+  const [cards, setCards] = React.useState(0);
+  const [moreCards, setMoreCards] = React.useState(0);
+
+  React.useEffect(() => {
+    function getCards() {
+      if (width > 1200) {
+        setCards(12);
+        setMoreCards(3);
+      } else if (width <= 1200 && width > 720) {
+        setCards(8);
+        setMoreCards(2);
+      } else if (width <= 720) {
+        setCards(5);
+        setMoreCards(1);
+      }
+    }
+    getCards();
+  }, [width]);
+
+  function getMoreCards() {
+    setCards(cards + moreCards);
+  }
+
+  return (
+    <section className="movies-card-list">
+      {isSavedMoviesRoute  && (
+        <>
+          <div className="movies-card-list__loader-container">
+            {errorMessageSavedMovies && (
+              <p className="movies-card-list__error-message">{errorMessageSavedMovies}</p>
+            )}
+            {isCardsLoading && <Preloader />}
           </div>
-      <div className="more-movies-card">
-        <button className="more-movies-card__btn button" type="button">Ещё</button>
-      </div>
+          <div className="movies-card-list__container">
+            {savedMovies.map((card) => (
+              <MoviesCard
+                key={card._id}
+                card={card}
+                onSaveMovie={onSaveMovie}
+                onDeleteSavedMovie={onDeleteSavedMovie}
+              />
+            ))}
+          </div>
+        </>
+      )}
+      {isMoviesRoute && (
+        <>
+          <div className="movies-card-list__loader-container">
+            {errorMessageMovies && (
+              <p className="movies-card-list__error-message">{errorMessageMovies}</p>
+            )}
+            {isCardsLoading && <Preloader />}
+          </div>
+          <div className="movies-card-list__container">
+            {moviesCards.slice(0, cards).map((card) => (
+              <MoviesCard
+                key={card.id}
+                card={card}
+                onSaveMovie={onSaveMovie}
+                onDeleteMovie={onDeleteMovie}
+              />
+            ))}
+          </div>
+          <div
+            className={`more-movies-card ${
+              moviesCards.length >= cards ? 'more-movies-card_type_active' : ''
+            }`}>
+            <button className="more-movies-card__btn button" type="button" onClick={getMoreCards}>
+              Ещё
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 }
