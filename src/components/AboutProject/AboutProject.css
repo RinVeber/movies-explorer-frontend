@@ -1,0 +1,154 @@
+.about-project {
+    padding: 110px 70px;
+    margin: 0;
+    background-color: #FAFAFA;
+  }
+  
+.description {
+    display: flex;
+    padding: 70px 0 110px;
+  }
+  
+  .description__column {
+    max-width: 500px;
+    margin-right: 80px;
+  }
+  
+  .description__brief {
+    margin: 0 0 26px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+  }
+  
+  .description__text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .time {
+    display: flex;
+  }
+  
+  .time__back-week-container {
+    width: 20%;
+  }
+  
+  .time__back-week {
+    height: 36px;
+    background-color: #3456F3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .time__front-week-container {
+    width: 80%;
+  }
+  
+  .time__front-week {
+    height: 36px;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .time__week-text-color {
+    color: #FFFFFF;
+  }
+  
+  .time__week-text {
+    margin: 0;
+    font-weight: 400px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  
+  .time__caption {
+    color: #a0a0a0;
+    margin: 14px 0 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+
+  .line-title {
+    border-bottom: 1px solid #000;
+  }
+  
+  .line-title_type_about {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  
+  @media screen and (max-width: 870px) {
+    .about-project {
+      padding: 90px 50px;
+    }
+  
+    .description {
+      padding-bottom: 93px;
+    }
+  
+    .description__column {
+      margin-right: 25px;
+    }
+  
+    .description__text {
+      font-size: 12px;
+      line-height: 18px;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .about-project {
+      padding: 70px 18px;
+    }
+  
+    .section-title {
+      padding-bottom: 28px;
+      font-size: 18px;
+      line-height: 22px;
+    }
+  
+    .description {
+      display: block;
+      padding: 60px 0 0;
+    }
+  
+    .description__column {
+      margin-right: 0;
+      margin-bottom: 60px;
+    }
+  
+    .description__brief {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  
+    .description__text {
+      font-size: 11px;
+      line-height: 16px;
+    }
+  
+    .time__back-week-container {
+      width: 35%;
+    }
+  
+    .time__front-week-container {
+      width: 65%;
+    }
+  
+    .time__week-text {
+      font-size: 11px;
+      line-height: 13px;
+    }
+  
+    .time__caption {
+      font-size: 11px;
+      line-height: 13px;
+      margin-bottom: 10px;
+    }
+  }
