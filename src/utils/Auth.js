@@ -39,3 +39,14 @@ export const authorize = (email, password) => {
   })
   .then(handleResponse);
 };
+
+export const logout = () => {
+    return fetch(`${mainApiUrl}/signout`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(handleResponse);
+  }

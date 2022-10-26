@@ -13,7 +13,7 @@ function Login({ handleLogin, setAuthErrorMessage }) {
     return () => {
       setAuthErrorMessage(null);
     };
-  }, []);
+  }, [setAuthErrorMessage]);
 
   const handleSubmit = (e) => {
 
@@ -50,7 +50,7 @@ function Login({ handleLogin, setAuthErrorMessage }) {
               autoComplete="on"
               required
             />
-            <span className="registr__input-error registr__input_type_error"></span>
+            <span className="registr__input-error registr__input_type_error">{errors.name}</span>
           </fieldset>
           <fieldset className="registr__form-container registr__form-container_type_login">
             <label className="registr__input-label" htmlFor="password">
@@ -70,7 +70,7 @@ function Login({ handleLogin, setAuthErrorMessage }) {
             />
             <span className="registr__input-error"></span>
             <span className="register__auth-error">
-              {authErrorMessage ? `Что пошло не так... ${authErrorMessage}` : ''}
+              {authErrorMessage  ? `Что пошло не так... ${authErrorMessage}` : ''}
             </span>
           </fieldset>
           <button className="registr__btn button" type="submit">

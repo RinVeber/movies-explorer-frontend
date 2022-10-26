@@ -25,7 +25,7 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
             setSearchErrorMessage(null)
             resetForm();
         };
-    }, []);
+    }, [resetForm]);
 
     return (
         <section className="search-form">

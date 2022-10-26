@@ -15,7 +15,7 @@ function Register({ handleRegister, setAuthErrorMessage }) {
     return () => {
       setAuthErrorMessage(null);
     };
-  }, []);
+  }, [setAuthErrorMessage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

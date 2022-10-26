@@ -15,7 +15,7 @@ function Movies({
     return () => {
       setErrorMessageMovies(null);
     };
-  }, []);
+  }, [setErrorMessageMovies]);
 
   return (
     <>

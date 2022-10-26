@@ -23,14 +23,14 @@ function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMess
     } else {
       setIsButtonValid(false);
     }
-  }, [values]);
+  }, [values, currentUser.name, currentUser.email, isValid, name, email]);
 
   React.useEffect(() => {
     return () => {
       setUpdateMessage(null)
       setUpdateErrorMessage(null);
     };
-  }, []);
+  }, [setUpdateMessage, setUpdateErrorMessage]);
 
   function handleSubmit(evt) {
     evt.preventDefault();

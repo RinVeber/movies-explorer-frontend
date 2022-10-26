@@ -52,13 +52,30 @@ function App() {
     }
   }, [loggedIn]);
 
+  React.useEffect(() => {
+    checkToken();
+    if (loggedIn) {
+      history.push('/movies');
+      Promise.all([mainApi.getUser(), mainApi.getMovies()])
+        .then(([user, data]) => {
+          setCurrentUser(user);
+          setSavedMovies(data);
+          localStorage.setItem('lastSavedMovies', JSON.stringify(data));
+        })
+        .catch((error) => {
+          handleLogout();
+          console.log(error);
+        });
+    }
+  }, [loggedIn, history, ]);
+
   function handleSearchMovie(movie) {
 
     setIsCardsLoading(true);
     setErrorMessageMovies(null);
     setMoviesCards([]);
     setIsCardsLoading(true);
-    
+
     const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearchMovies'));
 
     if (lastSearchMovies) {
@@ -69,7 +86,7 @@ function App() {
         const movieNameRU = item.nameRU?.toLowerCase();
         const movieDescription = item.description?.toLowerCase();
         let searchMovieName = movie.movieName?.toLowerCase();
-        
+
         const isSearchMovies =
           movieNameRU.includes(searchMovieName) ||
           movieNameEN.includes(searchMovieName) ||
@@ -177,23 +194,6 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
-    checkToken();
-    if (loggedIn) {
-      history.push('/movies');
-      Promise.all([mainApi.getUser(), mainApi.getMovies()])
-        .then(([user, data]) => {
-          setCurrentUser(user);
-          setSavedMovies(data);
-          localStorage.setItem('lastSavedMovies', JSON.stringify(data));
-        })
-        .catch((error) => {
-          handleLogout();
-          console.log(error);
-        });
-    }
-  }, [loggedIn]);
-
   function handleUpdateUser(data) {
     setIsDisabledForm(true);
     mainApi
@@ -246,10 +246,10 @@ function App() {
   }
 
   function handleLogout() {
+    setLoggedIn(false);
     localStorage.removeItem('jwt');
     localStorage.removeItem('lastSearchMovies');
     localStorage.removeItem('lastSavedMovies');
-    setLoggedIn(false);
     setMoviesCards([]);
     setSavedMovies([]);
     setCurrentUser({});
@@ -282,10 +282,10 @@ function App() {
                 path="/movies"
                 component={Movies}
                 loggedIn={loggedIn}
+                onFilterShortMovies={handleFilterShortMovies}
                 onSearchMovie={handleSearchMovie}
                 onSaveMovie={handleCreateMovie}
                 onDeleteMovie={handleMovieForDelete}
-                onFilterShortMovies={handleFilterShortMovies}
                 setErrorMessageMovies={setErrorMessageMovies}></ProtectedRoute>
               <ProtectedRoute
                 path="/saved-movies"

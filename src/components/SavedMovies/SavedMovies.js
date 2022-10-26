@@ -1,5 +1,4 @@
 import React from 'react';
-import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
@@ -18,17 +17,18 @@ function SavedMovies({
       const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedMovies'));
       setSavedMovies(lastSavedMovies);
     };
-  }, []);
+  }, [setSavedMovies, setErrorMessageSavedMovies]);
   return (
     <>
-    <Header />
-    
-       {/* <Preloader /> */}
-       <main className="content">
-      <SearchForm onSearchMovie={onSearchMovie} onFilterShortMovies={onFilterShortMovies} />
-      <MoviesCardList  onDeleteSavedMovie={onDeleteSavedMovie} />
-    </main>
-    <Footer />
+      <Header />
+      <main className="content">
+        <SearchForm
+          onSearchMovie={onSearchMovie}
+          onFilterShortMovies={onFilterShortMovies} />
+        <MoviesCardList
+          onDeleteSavedMovie={onDeleteSavedMovie} />
+      </main>
+      <Footer />
     </>
   );
 }
