@@ -33,6 +33,8 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
 
   function getMoreCards() {
     setCards(cards + moreCards);
+
+    
   }
 
   return (
@@ -66,6 +68,7 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
             {isCardsLoading && <Preloader />}
           </div>
           <div className="movies-card-list__container">
+            
             {moviesCards.slice(0, cards).map((card) => (
               <MoviesCard
                 key={card.id}
@@ -79,9 +82,12 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
             className={`more-movies-card ${
               moviesCards.length >= cards ? 'more-movies-card_type_active' : ''
             }`}>
-            <button className="more-movies-card__btn button" type="button" onClick={getMoreCards}>
+
+            {(moviesCards[0] && (moviesCards.length - 1) >= cards) && <button className="more-movies-card__btn button" type="button" onClick={getMoreCards}>
               Ещё
-            </button>
+            </button>}
+
+
           </div>
         </>
       )}
