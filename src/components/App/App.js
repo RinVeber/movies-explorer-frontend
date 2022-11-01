@@ -154,7 +154,6 @@ function App() {
   React.useEffect(() => {
     checkToken();
     if (loggedIn) {
-      history.push('/movies');
       Promise.all([mainApi.getUser(), mainApi.getMovies()])
         .then(([user, data]) => {
           setCurrentUser(user);
@@ -262,7 +261,6 @@ function App() {
           <div className="page">
             <Switch>
               <Route exact path="/" loggedIn={loggedIn}>
-
                 <Main />
                 <Footer />
               </Route>

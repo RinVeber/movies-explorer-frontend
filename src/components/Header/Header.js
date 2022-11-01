@@ -11,10 +11,7 @@ function Header() {
   function toggleMenu() {
     setMenuOpen(!isMenuOpen);
   }
-  function logged(){
-    setLoggedIn(!loggedIn);
-  }
-  
+
   const isMain = useRouteMatch({ path: '/', exact: true });
 
   return (
@@ -25,13 +22,8 @@ function Header() {
 
       <Switch>
         <Route exact path="/">
-          <div className={` ${loggedIn 
-          ? 
-            'header__auth-hiden' 
-            : 
-            'header__auth-container'
-            }`
-            }>
+          {!loggedIn && <Navigation isMenuOpen={isMenuOpen}/>}
+          <div className={` ${loggedIn ? 'header__auth-container':'header__auth-hiden' }`}>
             <Link className="header__reg-link link" to="/signup">
               Регистрация
             </Link>

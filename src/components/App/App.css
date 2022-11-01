@@ -50,7 +50,7 @@
   }
   
   .button:hover {
-    opacity: .6;
+    opacity: 1!important;
     transition: opacity 0.2s linear 0s;
   }
   
