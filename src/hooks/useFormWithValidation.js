@@ -10,8 +10,9 @@ export function useFormWithValidation() {
     console.log(evt);
 
     const input = evt.target;
-    const value = input.value;
+    const value = input.type == 'checkbox' ? input.checked : input.value;
     const name = input.name;
+
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
     setIsValid(input.closest("form").checkValidity());

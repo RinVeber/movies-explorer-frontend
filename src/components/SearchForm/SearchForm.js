@@ -5,7 +5,7 @@ import { searchError } from '../../utils/constants';
 
 function SearchForm({ onSearchMovie, onFilterShortMovies }) {
     const { values, handleChange, isValid, resetForm } = useFormWithValidation();
-    const { name } = values;
+    const { name, isShort } = values;
     const [searchErrorMessage, setSearchErrorMessage] = React.useState(null);
 
     React.useEffect(() => {
@@ -15,26 +15,29 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
         };
     }, []);
 
+    React.useEffect(() => {
+
+        if (name) {
+            handleSubmit();
+        }
+
+    }, [isShort, name]);
+
     function handleSubmit(evt) {
-        evt.preventDefault();
+
+        evt && evt.preventDefault();
+
         if (isValid && name !== '') {
+
             onSearchMovie({
                 movieName: name,
+                isShort: isShort,
             });
-
-                
 
             setSearchErrorMessage(null);
         } else {
             setSearchErrorMessage(searchError);
         }
-
-    }
-
-    function checkShort() {
-        const element = document.querySelector('input[type=checkbox]');
-        const isChecked = element.checked;
-        onFilterShortMovies(isChecked);
     }
 
     return (
@@ -59,9 +62,10 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
                 <span className="search-form__search-error">
                     {searchErrorMessage ? `${searchErrorMessage}` : ''}
                 </span>
+                <div className="search-form__line"></div>
+                <CheckBox isShort={isShort} handleChange={handleChange} />
             </form>
-            <div className="search-form__line"></div>
-            <CheckBox onFilterShortMovies={onFilterShortMovies} />
+
         </section>
     );
 }

@@ -1,16 +1,18 @@
 import React from 'react';
 
-function CheckBox({ onFilterShortMovies }) {
+function CheckBox({handleChange, isShort}) {
 
-  function handleFilterShortMovies() {
-    const element = document.querySelector('input[type=checkbox]');
-    const isChecked = element.checked;
-    onFilterShortMovies(isChecked);
-  }
-  
   return (
     <div className="short-film">
-      <input className="short-film__checkbox" id="filter-checkbox" type="checkbox" onClick={handleFilterShortMovies} />
+      <input 
+        className="short-film__checkbox" 
+        id="filter-checkbox" 
+        name='isShort' 
+        type="checkbox" 
+        value={isShort || ''} 
+        onChange={handleChange} 
+        />
+        
       <label className="short-film__label" htmlFor="filter-checkbox">
         Короткометражки
       </label>

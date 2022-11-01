@@ -58,49 +58,12 @@ function App() {
     }
   }, [loggedIn]);
 
-  function handleSearchMovie(movie) {
-
-    setIsCardsLoading(true);
-    setErrorMessageMovies(null);
-    setMoviesCards([]);
-    setIsCardsLoading(true);
-    const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearchMovies'));
-
-    if (lastSearchMovies) {
-
-      let searchMovies = lastSearchMovies.filter((item) => {
-        const nameEN = item.nameEN ? item.nameEN : item.nameRU;
-        const movieNameEN = nameEN.toLowerCase();
-        const movieNameRU = item.nameRU?.toLowerCase();
-  
-        let searchMovieName = movie.movieName?.toLowerCase();
-
-        const isSearchMovies =
-          movieNameRU.includes(searchMovieName) ||
-          movieNameEN.includes(searchMovieName);
-
-        return isSearchMovies;
-      });
-
-      setIsCardsLoading(false);
-      if (searchMovies[0]) {
-        setMoviesCards(searchMovies);
-      } else {
-        setErrorMessageMovies(notFoundError);
-        setMoviesCards([]);
-      }
-    }
-    if (!lastSearchMovies) {
-      setErrorMessageMovies(serverError);
-    }
-  }
-
-  function handleSearchSavedMovie(movie) {
+  function commonHandleSearchMovie(isSaved, movie) {
     setErrorMessageSavedMovies(null);
     setIsCardsLoading(true);
 
-    const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedMovies'));
-    const filterMovies = lastSavedMovies.filter((item) => {
+    const lastMovies = JSON.parse(localStorage.getItem(isSaved ? 'lastSavedMovies' : 'lastSearchMovies'));
+    let filterMovies = lastMovies.filter((item) => {
       const nameEN = item.nameEN ? item.nameEN : item.nameRU;
       const movieNameEN = nameEN.toLowerCase();
       const movieNameRU = item.nameRU?.toLowerCase();
@@ -110,13 +73,31 @@ function App() {
         movieNameEN.includes(searchMovieName);
       return filterMovies;
     });
-    setIsCardsLoading(false);
+
+    if (movie.isShort) {
+      filterMovies = filterMovies.filter((item) => item.duration <= shortMovie);
+    } 
+
     if (filterMovies[0]) {
-      setSavedMovies(filterMovies);
+      isSaved 
+        ? setSavedMovies(filterMovies)
+        : setMoviesCards(filterMovies);
     } else {
       setErrorMessageSavedMovies(notFoundError);
-      setSavedMovies([]);
+      isSaved 
+        ? setSavedMovies([])
+        : setMoviesCards([]);
     }
+
+    setIsCardsLoading(false);
+  }
+
+  function handleSearchSavedMovie(movie) {
+    commonHandleSearchMovie(true, movie)
+  }
+
+  function handleSearchMovie(movie) {
+    commonHandleSearchMovie(false, movie)
   }
 
   function handleFilterShortMovies(isChecked) {
