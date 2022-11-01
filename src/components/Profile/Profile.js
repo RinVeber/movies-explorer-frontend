@@ -6,9 +6,9 @@ import { AppContext } from '../../context/AppContext';
 
 function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMessage }) {
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormWithValidation();
-  const { name, email } = values;
   const [isButtonValid, setIsButtonValid] = React.useState(true);
   const currentUser = React.useContext(CurrentUserContext);
+  const { name, email } = values;
   const { updateMessage, updateErrorMessage, isDisabledForm } = React.useContext(AppContext);
 
   React.useEffect(() => {
@@ -16,21 +16,6 @@ function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMess
       resetForm(currentUser, {}, true);
     }
   }, [currentUser, resetForm]);
-
-  React.useEffect(() => {
-    if (isValid && (name !== currentUser.name || email !== currentUser.email)) {
-      setIsButtonValid(true);
-    } else {
-      setIsButtonValid(false);
-    }
-  }, [values, currentUser.name, currentUser.email, isValid, name, email]);
-
-  React.useEffect(() => {
-    return () => {
-      setUpdateMessage(null)
-      setUpdateErrorMessage(null);
-    };
-  }, [setUpdateMessage, setUpdateErrorMessage]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -40,6 +25,24 @@ function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMess
       });
   }
 
+  React.useEffect(() => {
+    if (isValid && (name !== currentUser.name || email !== currentUser.email)) {
+      setIsButtonValid(true);
+    } else {
+      setIsButtonValid(false);
+    }
+  }, [values]);
+
+  React.useEffect(() => {
+    return () => {
+      setUpdateMessage(null)
+      setUpdateErrorMessage(null);
+    };
+  }, []);
+
+
+console.log(email);
+  
   return (
     <>
     <Header />
@@ -58,7 +61,7 @@ function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMess
               disabled={isDisabledForm}
               placeholder="Виталий"
               type="text"
-              name="name-user"
+              name="name"
               minLength="1"
               maxLength="100"
               required
@@ -74,11 +77,13 @@ function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMess
    
               value={email || ''}
               onChange={handleChange}
-              disabled={isDisabledForm}
+              
               placeholder="E-mail"
               type="email"
-              name="name-user"
+              name="email"
               minLength="1"
+              pattern= "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              disabled={isDisabledForm}
               maxLength="100"
               required
             />
@@ -89,14 +94,14 @@ function Profile({ onUpdateUser, onSignOut, setUpdateMessage, setUpdateErrorMess
                 {updateMessage ? `${updateMessage}` : '' || updateErrorMessage ? `Что пошло не так... ${updateErrorMessage}` : ''}
               </span>
           </fieldset>
-        </form>
-        <button
+          <button
               className={`profile__edit-btn button ${
                 isButtonValid ? '' : 'profile__edit-btn_type_inactive'
               }`}
               type="submit">
               Редактировать
             </button>
+        </form>
 
         <button className="profile__sign-out-btn button" type="button" onClick={onSignOut}>Выйти из аккаунта</button>
       </section>

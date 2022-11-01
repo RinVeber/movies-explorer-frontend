@@ -37,7 +37,13 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
+
+
     if (loggedIn) {
+      if (localStorage.getItem('lastSearchMovies')) {
+        return;
+      }
+
       setIsCardsLoading(true);
       moviesApi
         .getInicialMoviesCards()
@@ -52,30 +58,12 @@ function App() {
     }
   }, [loggedIn]);
 
-  React.useEffect(() => {
-    checkToken();
-    if (loggedIn) {
-      history.push('/movies');
-      Promise.all([mainApi.getUser(), mainApi.getMovies()])
-        .then(([user, data]) => {
-          setCurrentUser(user);
-          setSavedMovies(data);
-          localStorage.setItem('lastSavedMovies', JSON.stringify(data));
-        })
-        .catch((error) => {
-          handleLogout();
-          console.log(error);
-        });
-    }
-  }, [loggedIn, history, ]);
-
   function handleSearchMovie(movie) {
 
     setIsCardsLoading(true);
     setErrorMessageMovies(null);
     setMoviesCards([]);
     setIsCardsLoading(true);
-
     const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearchMovies'));
 
     if (lastSearchMovies) {
@@ -84,13 +72,12 @@ function App() {
         const nameEN = item.nameEN ? item.nameEN : item.nameRU;
         const movieNameEN = nameEN.toLowerCase();
         const movieNameRU = item.nameRU?.toLowerCase();
-        const movieDescription = item.description?.toLowerCase();
+  
         let searchMovieName = movie.movieName?.toLowerCase();
 
         const isSearchMovies =
           movieNameRU.includes(searchMovieName) ||
-          movieNameEN.includes(searchMovieName) ||
-          movieDescription.includes(searchMovieName);
+          movieNameEN.includes(searchMovieName);
 
         return isSearchMovies;
       });
@@ -117,12 +104,10 @@ function App() {
       const nameEN = item.nameEN ? item.nameEN : item.nameRU;
       const movieNameEN = nameEN.toLowerCase();
       const movieNameRU = item.nameRU?.toLowerCase();
-      const movieDescription = item.description?.toLowerCase();
       const searchMovieName = movie.movieName?.toLowerCase();
       const filterMovies =
         movieNameRU.includes(searchMovieName) ||
-        movieNameEN.includes(searchMovieName) ||
-        movieDescription.includes(searchMovieName);
+        movieNameEN.includes(searchMovieName);
       return filterMovies;
     });
     setIsCardsLoading(false);
@@ -135,17 +120,22 @@ function App() {
   }
 
   function handleFilterShortMovies(isChecked) {
-    if (isChecked && moviesCards[0]) {
-      const shortMoviesCards = moviesCards.filter((item) => item.duration <= shortMovie);
-      setMoviesCards(shortMoviesCards);
+
+    if(isChecked){
+      if (moviesCards[0]) {
+        const shortMoviesCards = moviesCards.filter((item) => item.duration <= shortMovie);
+        setMoviesCards(shortMoviesCards);
+      }
+      if (!isChecked && moviesCards[0]) {
+        const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearchMovies'));
+        setMoviesCards(lastSearchMovies);
+      }
+      if (!moviesCards[0]) {
+        setErrorMessageMovies(notFoundError);
+      }
     }
-    if (!isChecked && moviesCards[0]) {
-      const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearchMovies'));
-      setMoviesCards(lastSearchMovies);
-    }
-    if (!moviesCards[0]) {
-      setErrorMessageMovies(notFoundError);
-    }
+
+    
   }
 
   function handleFilterShortSavedMovies(isChecked) {
@@ -179,6 +169,23 @@ function App() {
         console.log(error);
       });
   }
+
+  React.useEffect(() => {
+    checkToken();
+    if (loggedIn) {
+      history.push('/movies');
+      Promise.all([mainApi.getUser(), mainApi.getMovies()])
+        .then(([user, data]) => {
+          setCurrentUser(user);
+          setSavedMovies(data);
+          localStorage.setItem('lastSavedMovies', JSON.stringify(data));
+        })
+        .catch((error) => {
+          handleLogout();
+          console.log(error);
+        });
+    }
+  }, [loggedIn]);
 
   function handleCreateMovie(movie) {
     mainApi
@@ -214,7 +221,7 @@ function App() {
     auth
       .register(name, email, password)
       .then((user) => {
-        history.push("/signin");
+        handleLogin({ email, password });
       })
       .catch((error) => {
         setAuthErrorMessage(error);
@@ -273,8 +280,8 @@ function App() {
         <div className="body">
           <div className="page">
             <Switch>
-              <Route exact path="/">
-                <Header />
+              <Route exact path="/" loggedIn={loggedIn}>
+
                 <Main />
                 <Footer />
               </Route>

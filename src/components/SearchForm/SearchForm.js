@@ -8,24 +8,34 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
     const { name } = values;
     const [searchErrorMessage, setSearchErrorMessage] = React.useState(null);
 
+    React.useEffect(() => {
+        return () => {
+            setSearchErrorMessage(null)
+            resetForm();
+        };
+    }, []);
+
     function handleSubmit(evt) {
         evt.preventDefault();
         if (isValid && name !== '') {
             onSearchMovie({
                 movieName: name,
             });
-            setSearchErrorMessage(null)
+
+                
+
+            setSearchErrorMessage(null);
         } else {
             setSearchErrorMessage(searchError);
         }
+
     }
 
-    React.useEffect(() => {
-        return () => {
-            setSearchErrorMessage(null)
-            resetForm();
-        };
-    }, [resetForm]);
+    function checkShort() {
+        const element = document.querySelector('input[type=checkbox]');
+        const isChecked = element.checked;
+        onFilterShortMovies(isChecked);
+    }
 
     return (
         <section className="search-form">

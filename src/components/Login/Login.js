@@ -48,6 +48,7 @@ function Login({ handleLogin, setAuthErrorMessage }) {
               type="email"
               name="email"
               autoComplete="on"
+              pattern= "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               required
             />
             <span className="registr__input-error registr__input_type_error">{errors.name}</span>

@@ -15,6 +15,9 @@
   .header_color {
     background-color: #DDDEE3;
   }
+  .header__auth-hiden{
+    display: none;
+  }
   
   .header__auth-container {
     display: flex;

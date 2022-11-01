@@ -1,16 +1,20 @@
 import React from 'react';
-import { Route, Link, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Link, Switch, useRouteMatch, NavLink } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Navigation from '../Navigation/Navigation';
 
 function Header() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   function toggleMenu() {
     setMenuOpen(!isMenuOpen);
   }
-
+  function logged(){
+    setLoggedIn(!loggedIn);
+  }
+  
   const isMain = useRouteMatch({ path: '/', exact: true });
 
   return (
@@ -18,9 +22,16 @@ function Header() {
       <Link to="/">
         <img src={logo} alt="логотип" className="logo" />
       </Link>
+
       <Switch>
         <Route exact path="/">
-          <div className="header__auth-container">
+          <div className={` ${loggedIn 
+          ? 
+            'header__auth-hiden' 
+            : 
+            'header__auth-container'
+            }`
+            }>
             <Link className="header__reg-link link" to="/signup">
               Регистрация
             </Link>
@@ -29,9 +40,12 @@ function Header() {
             </Link>
           </div>
         </Route>
-        <Route path={['/movies', '/saved-movies', '/profile']}>
-          <Navigation isMenuOpen={isMenuOpen} />
+        <Route path={['/movies', '/saved-movies', '/profile', '/',]}>
+          <Navigation isMenuOpen={isMenuOpen}/>
           <BurgerMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+        </Route>
+        <Route path="/">
+
         </Route>
       </Switch>
     </header>
