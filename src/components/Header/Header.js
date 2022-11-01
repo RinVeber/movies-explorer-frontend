@@ -32,12 +32,9 @@ function Header({loggedIn}) {
             </Link>
           </div>
         </Route>
-        <Route path={['/movies', '/saved-movies', '/profile', '/',]}>
+        <Route path={['/movies', '/saved-movies', '/profile']}>
           <Navigation isMenuOpen={isMenuOpen}/>
           <BurgerMenu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-        </Route>
-        <Route path="/">
-
         </Route>
       </Switch>
     </header>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CheckBox({handleChange, isShort}) {
+function CheckBox({handleChange, isShort, isDisabledForm}) {
 
   return (
     <div className="short-film">
@@ -10,7 +10,8 @@ function CheckBox({handleChange, isShort}) {
         name='isShort' 
         type="checkbox" 
         value={isShort || ''} 
-        onChange={handleChange} 
+        onChange={handleChange}
+        disabled={isDisabledForm}
         />
         
       <label className="short-film__label" htmlFor="filter-checkbox">

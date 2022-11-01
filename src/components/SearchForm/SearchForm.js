@@ -2,11 +2,13 @@ import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 import { searchError } from '../../utils/constants';
+import { AppContext } from '../../context/AppContext';
 
-function SearchForm({ onSearchMovie, onFilterShortMovies }) {
+function SearchForm({ onSearchMovie }) {
     const { values, handleChange, isValid, resetForm } = useFormWithValidation();
     const { name, isShort } = values;
     const [searchErrorMessage, setSearchErrorMessage] = React.useState(null);
+    const { isDisabledForm } = React.useContext(AppContext);
 
     React.useEffect(() => {
         return () => {
@@ -21,7 +23,7 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
             handleSubmit();
         }
 
-    }, [isShort, name]);
+    }, [isShort]);
 
     function handleSubmit(evt) {
 
@@ -48,6 +50,7 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
                         className="search-form__input"
                         value={name || ''}
                         onChange={handleChange}
+                        disabled={isDisabledForm}
                         type="text"
                         placeholder="Фильм"
                         name="name"
@@ -63,7 +66,7 @@ function SearchForm({ onSearchMovie, onFilterShortMovies }) {
                     {searchErrorMessage ? `${searchErrorMessage}` : ''}
                 </span>
                 <div className="search-form__line"></div>
-                <CheckBox isShort={isShort} handleChange={handleChange} />
+                <CheckBox isShort={isShort} handleChange={handleChange} disabled={isDisabledForm}/>
             </form>
 
         </section>

@@ -20,7 +20,7 @@ import * as auth from '../../utils/Auth';
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(null);
 
   const [moviesCards, setMoviesCards] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -32,13 +32,16 @@ function App() {
   const [authErrorMessage, setAuthErrorMessage] = React.useState(null);
   const [updateMessage, setUpdateMessage] = React.useState(null);
   const [updateErrorMessage, setUpdateErrorMessage] = React.useState(null);
+
   const [isDisabledForm, setIsDisabledForm] = React.useState(false);
 
   const history = useHistory();
 
   React.useEffect(() => {
+    checkToken();
+  }, []);
 
-
+  React.useEffect(() => {
     if (loggedIn) {
       if (localStorage.getItem('lastSearchMovies')) {
         return;
@@ -75,6 +78,7 @@ function App() {
     setErrorMessageSavedMovies(null);
     setIsCardsLoading(true);
 
+
     const lastMovies = JSON.parse(localStorage.getItem(isSaved ? 'lastSavedMovies' : 'lastSearchMovies'));
     let filterMovies = lastMovies.filter((item) => {
       const nameEN = item.nameEN ? item.nameEN : item.nameRU;
@@ -102,7 +106,10 @@ function App() {
         : setMoviesCards([]);
     }
 
-    setIsCardsLoading(false);
+    // // TODO
+    // setTimeout(() => {
+    //   setIsCardsLoading(false);
+    // }, 2 * 1000);
   }
 
   function handleSearchSavedMovie(movie) {
@@ -177,8 +184,6 @@ function App() {
           handleLogout();
           console.log(error);
         });
-    } else {
-      handleLogout();
     }
   }, [loggedIn]);
 
@@ -244,6 +249,8 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
     }
   }
 
@@ -255,9 +262,12 @@ function App() {
     setMoviesCards([]);
     setSavedMovies([]);
     setCurrentUser({});
+    setAuthErrorMessage('');
+    setErrorMessageMovies('');
+    setErrorMessageSavedMovies('');
     history.push('/');
   }
-
+  console.log(loggedIn);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <AppContext.Provider
@@ -275,12 +285,12 @@ function App() {
         <div className="body">
           <div className="page">
             <Switch>
-              <Route exact path="/">
+              <Route exact path="/" >
                 <Header loggedIn={loggedIn} />
                 <Main />
                 <Footer />
               </Route>
-              <ProtectedRoute
+              <ProtectedRoute exact
                 path="/movies"
                 component={Movies}
                 loggedIn={loggedIn}
@@ -308,7 +318,7 @@ function App() {
                 setUpdateErrorMessage={setUpdateErrorMessage}></ProtectedRoute>
               <Route path="/signin">
                 <Login handleLogin={handleLogin} setAuthErrorMessage={setAuthErrorMessage} />
-                {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
+                {loggedIn ? <Redirect to="/movies" exact={true} /> : <Redirect to="/signin" />}
               </Route>
               <Route path="/signup">
                 <Register

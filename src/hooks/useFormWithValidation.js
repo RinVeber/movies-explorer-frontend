@@ -7,8 +7,6 @@ export function useFormWithValidation() {
 
   const handleChange = (evt) => {
 
-    console.log(evt);
-
     const input = evt.target;
     const value = input.type == 'checkbox' ? input.checked : input.value;
     const name = input.name;
