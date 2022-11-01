@@ -58,6 +58,19 @@ function App() {
     }
   }, [loggedIn]);
 
+  React.useEffect(() => {
+
+    const error401 = "ошибка: 401";
+
+    if (errorMessageMovies?.includes(error401)
+      || errorMessageSavedMovies?.includes(error401)
+      || authErrorMessage?.includes(error401)) {
+      handleLogout();
+      history.push('/');
+    }
+
+  }, [errorMessageMovies, errorMessageSavedMovies, authErrorMessage]);
+
   function commonHandleSearchMovie(isSaved, movie) {
     setErrorMessageSavedMovies(null);
     setIsCardsLoading(true);
@@ -76,15 +89,15 @@ function App() {
 
     if (movie.isShort) {
       filterMovies = filterMovies.filter((item) => item.duration <= shortMovie);
-    } 
+    }
 
     if (filterMovies[0]) {
-      isSaved 
+      isSaved
         ? setSavedMovies(filterMovies)
         : setMoviesCards(filterMovies);
     } else {
       setErrorMessageSavedMovies(notFoundError);
-      isSaved 
+      isSaved
         ? setSavedMovies([])
         : setMoviesCards([]);
     }
@@ -102,7 +115,7 @@ function App() {
 
   function handleFilterShortMovies(isChecked) {
 
-    if(isChecked){
+    if (isChecked) {
       if (moviesCards[0]) {
         const shortMoviesCards = moviesCards.filter((item) => item.duration <= shortMovie);
         setMoviesCards(shortMoviesCards);
@@ -116,7 +129,7 @@ function App() {
       }
     }
 
-    
+
   }
 
   function handleFilterShortSavedMovies(isChecked) {
@@ -164,6 +177,8 @@ function App() {
           handleLogout();
           console.log(error);
         });
+    } else {
+      handleLogout();
     }
   }, [loggedIn]);
 
@@ -260,7 +275,8 @@ function App() {
         <div className="body">
           <div className="page">
             <Switch>
-              <Route exact path="/" loggedIn={loggedIn}>
+              <Route exact path="/">
+                <Header loggedIn={loggedIn} />
                 <Main />
                 <Footer />
               </Route>

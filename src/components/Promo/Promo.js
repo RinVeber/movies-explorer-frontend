@@ -1,11 +1,8 @@
 import React from 'react';
 import promoLogo from '../../images/promo__logo.png';
-import Header from '../Header/Header';
 
 function Promo() {
     return (
-      <>
-      <Header />
       <section className="promo">
         <img src={promoLogo} alt="логотип планеты" className="promo__logo" />
         <div className="promo__text-container">
@@ -20,7 +17,6 @@ function Promo() {
           </a>
         </div>
       </section>
-      </>
     );
   }
   

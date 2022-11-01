@@ -4,9 +4,9 @@ import logo from '../../images/logo.svg';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Navigation from '../Navigation/Navigation';
 
-function Header() {
+function Header({loggedIn}) {
+
   const [isMenuOpen, setMenuOpen] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(false);
 
   function toggleMenu() {
     setMenuOpen(!isMenuOpen);
@@ -22,8 +22,8 @@ function Header() {
 
       <Switch>
         <Route exact path="/">
-          {!loggedIn && <Navigation isMenuOpen={isMenuOpen}/>}
-          <div className={` ${loggedIn ? 'header__auth-container':'header__auth-hiden' }`}>
+          {loggedIn && <Navigation isMenuOpen={isMenuOpen}/>}
+          <div className={` ${loggedIn ? 'header__auth-hiden' : 'header__auth-container' }`}>
             <Link className="header__reg-link link" to="/signup">
               Регистрация
             </Link>
