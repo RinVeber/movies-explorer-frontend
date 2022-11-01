@@ -8,3 +8,12 @@ export const serverError =
   'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.';
 export const shortMovie = 40;
 export const successUpdateMessage = 'Успешно сохранено!';
+
+export const more = 'Ещё';
+export const moviesCardShow = 12;
+export const moviesPlanshetCardShow = 8;
+export const moviesMobileCardShow = 5;
+
+export const moreMoviesCardShow = 3;
+export const moreMoviesPlanshetCardShow = 2;
+export const moreMoviesMobileCardShow = 1;

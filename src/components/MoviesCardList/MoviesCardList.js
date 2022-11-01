@@ -4,6 +4,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import useWindowSize from '../../hooks/useWindowSize';
 import { AppContext } from '../../context/AppContext';
+import { more, moviesCardShow, moviesPlanshetCardShow, moviesMobileCardShow, moreMoviesCardShow,
+   moreMoviesPlanshetCardShow, moreMoviesMobileCardShow } from '../../utils/constants';
 
 function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
   const isSavedMoviesRoute  = useRouteMatch({ path: '/saved-movies', exact: false });
@@ -18,14 +20,14 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
   React.useEffect(() => {
     function getCards() {
       if (width > 1200) {
-        setCards(12);
-        setMoreCards(3);
+        setCards(moviesCardShow);
+        setMoreCards(moreMoviesCardShow);
       } else if (width <= 1200 && width > 720) {
-        setCards(8);
-        setMoreCards(2);
+        setCards(moviesPlanshetCardShow);
+        setMoreCards(moreMoviesPlanshetCardShow);
       } else if (width <= 720) {
-        setCards(5);
-        setMoreCards(1);
+        setCards(moviesMobileCardShow);
+        setMoreCards(moreMoviesMobileCardShow);
       }
     }
     getCards();
@@ -84,7 +86,7 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
             }`}>
 
             {(moviesCards[0] && (moviesCards.length - 1) >= cards) && <button className="more-movies-card__btn button" type="button" onClick={getMoreCards}>
-              Ещё
+              {more}
             </button>}
 
 

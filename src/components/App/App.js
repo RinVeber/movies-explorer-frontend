@@ -106,10 +106,9 @@ function App() {
         : setMoviesCards([]);
     }
 
-    // // TODO
-    // setTimeout(() => {
-    //   setIsCardsLoading(false);
-    // }, 2 * 1000);
+     setTimeout(() => {
+     setIsCardsLoading(false);
+     }, 5 * 100);
   }
 
   function handleSearchSavedMovie(movie) {
