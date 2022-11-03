@@ -11,9 +11,21 @@ export function useFormWithValidation() {
     const value = input.type == 'checkbox' ? input.checked : input.value;
     const name = input.name;
 
+    if (name == "name") {
+      localStorage.setItem('query', value || "");
+    }
+
+    if (name == "isShort") {
+      localStorage.setItem('checkbox', value || false);
+    }
+
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: input.validationMessage });
-    setIsValid(input.closest("form").checkValidity());
+
+    if (input.closest) {
+      setIsValid(input.closest("form").checkValidity());
+    }
+
   };
 
   const resetForm = useCallback(
@@ -25,5 +37,5 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, resetForm, errors, isValid };
+  return { values, setValues, setIsValid, handleChange, resetForm, errors, isValid };
 }
