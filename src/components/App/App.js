@@ -234,7 +234,10 @@ function App() {
 
   function handleLogin({ email, password }) {
     setIsDisabledForm(true);
-    auth
+
+    setTimeout(() => {
+      
+      auth
       .authorize(email, password)
       .then((data) => {
         localStorage.setItem('jwt', data.token);
@@ -245,6 +248,10 @@ function App() {
         console.log(error);
       })
       .finally(() => setIsDisabledForm(false));
+
+    }, 10 * 100);
+
+
   }
 
   function checkToken() {

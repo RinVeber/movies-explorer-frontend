@@ -22,7 +22,6 @@ function Login({ handleLogin, setAuthErrorMessage }) {
       return;
     }
     isValid && handleLogin({ email, password });
-    resetForm();
   };
 
   return (
@@ -75,7 +74,7 @@ function Login({ handleLogin, setAuthErrorMessage }) {
             </span>
           </fieldset>
         <button
-            className={`registr__btn button ${!isValid ? 'registr__btn_type_inactive' : ''}`}
+            className={`registr__btn button ${(!isValid) ? 'registr__btn_type_inactive' : ''}`}
             type="submit"
             disabled={isDisabledForm}>
             Войти

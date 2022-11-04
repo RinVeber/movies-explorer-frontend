@@ -76,7 +76,7 @@
     color: #fff;
   }
   
-  .registr__btn_type_inactive {
+  .registr__btn_type_inactive, .registr__btn[disabled] {
     opacity: .4;
     background: #3456F3;
     pointer-events: none;
