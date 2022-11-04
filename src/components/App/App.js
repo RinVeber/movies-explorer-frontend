@@ -291,8 +291,6 @@ function App() {
                 <Main />
                 <Footer />
               </Route>
-              {(loggedIn != null) 
-              ? <>
               <ProtectedRoute exact
               path="/movies"
               component={Movies}
@@ -319,10 +317,6 @@ function App() {
               onSignOut={handleLogout}
               setUpdateMessage={setUpdateMessage}
               setUpdateErrorMessage={setUpdateErrorMessage}></ProtectedRoute>
-              </>
-              : 
-              <Preloader />
-              }
               <Route path="/signin">
                 <Login handleLogin={handleLogin} setAuthErrorMessage={setAuthErrorMessage} />
                 {loggedIn ? <Redirect to="/movies" exact={true} /> : <Redirect to="/signin" />}
