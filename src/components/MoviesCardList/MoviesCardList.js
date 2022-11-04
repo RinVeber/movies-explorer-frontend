@@ -42,7 +42,7 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
       {isSavedMoviesRoute  && (
         <>
           <div className="movies-card-list__loader-container">
-            {errorMessageSavedMovies && (
+            {(savedMovies.length == 0) && (
               <p className="movies-card-list__error-message">{errorMessageSavedMovies}</p>
             )}
             {isCardsLoading && <Preloader />}
@@ -62,7 +62,7 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
       {isMoviesRoute && (
         <>
           <div className="movies-card-list__loader-container">
-          {errorMessageSavedMovies && (
+          {(moviesCards.length == 0) && (
               <p className="movies-card-list__error-message">{errorMessageSavedMovies}</p>
             )}
             {isCardsLoading && <Preloader />}
@@ -75,8 +75,11 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
                 card={card}
                 onSaveMovie={onSaveMovie}
                 onDeleteMovie={onDeleteMovie}
+                
               />
+             
             ))}
+          
           </div>
           <div
             className={`more-movies-card ${

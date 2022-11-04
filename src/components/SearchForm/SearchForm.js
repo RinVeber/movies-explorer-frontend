@@ -67,7 +67,7 @@ function SearchForm({ onSearchMovie }) {
 
     return (
         <section className="search-form">
-            <form id='form123' className="search-form__form" onSubmit={handleSubmit} name="search-form">
+            <form id='form' className="search-form__form" onSubmit={handleSubmit} name="search-form">
                 <div className="search-form__input-wrap">
                     <input
                         className="search-form__input"
