@@ -1,6 +1,6 @@
 export const moviesApiUrl = 'https://api.nomoreparties.co';
-//export const mainApiUrl = 'http://api.project.movies.nomoredomains.icu';
-export const mainApiUrl = 'http://localhost:3002'
+export const mainApiUrl = 'http://api.project.movies.nomoredomains.icu';
+//export const mainApiUrl = 'http://localhost:3002'
 export const searchError = 'Введите ключевое слово';
 
 export const notFoundError = 'Ничего не найдено.';

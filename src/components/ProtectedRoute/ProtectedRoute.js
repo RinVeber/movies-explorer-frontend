@@ -4,6 +4,7 @@ import Preloader from '../Preloader/Preloader';
 
 const ProtectedRoute = ({ component: Component, ...props }) => {
   return (
+    //чтобы избавиться от белого фона во время первого запуска
     props.loggedIn !== null &&
     <Route>
       {
