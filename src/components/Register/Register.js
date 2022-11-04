@@ -95,7 +95,10 @@ function Register({ handleRegister, setAuthErrorMessage }) {
               {authErrorMessage ? `Что-то пошло не так... ${authErrorMessage}` : ''}
             </span>
             </fieldset>
-            <button className="registr__btn button" type="submit">
+          <button
+            className={`registr__btn button ${!isValid ? 'registr__btn_type_inactive' : ''}`}
+            type="submit"
+            disabled={isDisabledForm}>
             Зарегистрироваться
           </button>
           </form>

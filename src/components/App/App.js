@@ -12,6 +12,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Preloader from '../Preloader/Preloader';
 import './App.css';
 import { moviesApi } from '../../utils/MoviesApi';
 import { notFoundError, serverError, shortMovie, successUpdateMessage } from '../../utils/constants';
@@ -106,9 +107,9 @@ function App() {
         : setMoviesCards([]);
     }
 
-     setTimeout(() => {
-     setIsCardsLoading(false);
-     }, 5 * 100);
+    setTimeout(() => {
+      setIsCardsLoading(false);
+    }, 5 * 100);
   }
 
   function handleSearchSavedMovie(movie) {
@@ -172,7 +173,7 @@ function App() {
 
   React.useEffect(() => {
     checkToken();
-    if (loggedIn) {
+    if (loggedIn === true) {
       Promise.all([mainApi.getUser(), mainApi.getMovies()])
         .then(([user, data]) => {
           setCurrentUser(user);
@@ -183,6 +184,8 @@ function App() {
           handleLogout();
           console.log(error);
         });
+    } else if (loggedIn === false) {
+      handleLogout();
     }
   }, [loggedIn]);
 
@@ -250,14 +253,13 @@ function App() {
       setLoggedIn(true);
     } else {
       setLoggedIn(false);
+      handleLogout();
     }
   }
 
   function handleLogout() {
     setLoggedIn(false);
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('lastSearchMovies');
-    localStorage.removeItem('lastSavedMovies');
+    localStorage.clear();
     setMoviesCards([]);
     setSavedMovies([]);
     setCurrentUser({});
@@ -266,7 +268,7 @@ function App() {
     setErrorMessageSavedMovies('');
     history.push('/');
   }
-  console.log(loggedIn);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <AppContext.Provider
@@ -289,32 +291,38 @@ function App() {
                 <Main />
                 <Footer />
               </Route>
+              {(loggedIn != null) 
+              ? <>
               <ProtectedRoute exact
-                path="/movies"
-                component={Movies}
-                loggedIn={loggedIn}
-                onFilterShortMovies={handleFilterShortMovies}
-                onSearchMovie={handleSearchMovie}
-                onSaveMovie={handleCreateMovie}
-                onDeleteMovie={handleMovieForDelete}
-                setErrorMessageMovies={setErrorMessageMovies}></ProtectedRoute>
-              <ProtectedRoute
-                path="/saved-movies"
-                component={SavedMovies}
-                loggedIn={loggedIn}
-                setSavedMovies={setSavedMovies}
-                onSearchMovie={handleSearchSavedMovie}
-                onDeleteSavedMovie={handleDeleteMovie}
-                onFilterShortMovies={handleFilterShortSavedMovies}
-                setErrorMessageSavedMovies={setErrorMessageSavedMovies}></ProtectedRoute>
-              <ProtectedRoute
-                path="/profile"
-                component={Profile}
-                loggedIn={loggedIn}
-                onUpdateUser={handleUpdateUser}
-                onSignOut={handleLogout}
-                setUpdateMessage={setUpdateMessage}
-                setUpdateErrorMessage={setUpdateErrorMessage}></ProtectedRoute>
+              path="/movies"
+              component={Movies}
+              loggedIn={loggedIn}
+              onFilterShortMovies={handleFilterShortMovies}
+              onSearchMovie={handleSearchMovie}
+              onSaveMovie={handleCreateMovie}
+              onDeleteMovie={handleMovieForDelete}
+              setErrorMessageMovies={setErrorMessageMovies}></ProtectedRoute>
+            <ProtectedRoute
+              path="/saved-movies"
+              component={SavedMovies}
+              loggedIn={loggedIn}
+              setSavedMovies={setSavedMovies}
+              onSearchMovie={handleSearchSavedMovie}
+              onDeleteSavedMovie={handleDeleteMovie}
+              onFilterShortMovies={handleFilterShortSavedMovies}
+              setErrorMessageSavedMovies={setErrorMessageSavedMovies}></ProtectedRoute>
+            <ProtectedRoute
+              path="/profile"
+              component={Profile}
+              loggedIn={loggedIn}
+              onUpdateUser={handleUpdateUser}
+              onSignOut={handleLogout}
+              setUpdateMessage={setUpdateMessage}
+              setUpdateErrorMessage={setUpdateErrorMessage}></ProtectedRoute>
+              </>
+              : 
+              <Preloader />
+              }
               <Route path="/signin">
                 <Login handleLogin={handleLogin} setAuthErrorMessage={setAuthErrorMessage} />
                 {loggedIn ? <Redirect to="/movies" exact={true} /> : <Redirect to="/signin" />}

@@ -5,13 +5,12 @@ import Preloader from '../Preloader/Preloader';
 import useWindowSize from '../../hooks/useWindowSize';
 import { AppContext } from '../../context/AppContext';
 import { more, moviesCardShow, moviesPlanshetCardShow, moviesMobileCardShow, moreMoviesCardShow,
-   moreMoviesPlanshetCardShow, moreMoviesMobileCardShow } from '../../utils/constants';
+   moreMoviesPlanshetCardShow, moreMoviesMobileCardShow, bigShow, minShow } from '../../utils/constants';
 
 function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
   const isSavedMoviesRoute  = useRouteMatch({ path: '/saved-movies', exact: false });
   const isMoviesRoute = useRouteMatch({ path: '/movies', exact: false });
-  const { moviesCards, isCardsLoading, errorMessageMovies, errorMessageSavedMovies, savedMovies } =
-    React.useContext(AppContext);
+  const { moviesCards, isCardsLoading, errorMessageSavedMovies, savedMovies } = React.useContext(AppContext);
   const width = useWindowSize();
 
   const [cards, setCards] = React.useState(0);
@@ -19,13 +18,13 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
 
   React.useEffect(() => {
     function getCards() {
-      if (width > 1200) {
+      if (width > bigShow) {
         setCards(moviesCardShow);
         setMoreCards(moreMoviesCardShow);
-      } else if (width <= 1200 && width > 720) {
+      } else if (width <= bigShow && width > minShow) {
         setCards(moviesPlanshetCardShow);
         setMoreCards(moreMoviesPlanshetCardShow);
-      } else if (width <= 720) {
+      } else if (width <= minShow) {
         setCards(moviesMobileCardShow);
         setMoreCards(moreMoviesMobileCardShow);
       }
@@ -38,7 +37,6 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
 
     
   }
-
   return (
     <section className="movies-card-list">
       {isSavedMoviesRoute  && (
@@ -64,8 +62,8 @@ function MoviesCardList({ onSaveMovie, onDeleteMovie, onDeleteSavedMovie }) {
       {isMoviesRoute && (
         <>
           <div className="movies-card-list__loader-container">
-            {errorMessageMovies && (
-              <p className="movies-card-list__error-message">{errorMessageMovies}</p>
+          {errorMessageSavedMovies && (
+              <p className="movies-card-list__error-message">{errorMessageSavedMovies}</p>
             )}
             {isCardsLoading && <Preloader />}
           </div>

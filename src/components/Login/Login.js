@@ -74,9 +74,12 @@ function Login({ handleLogin, setAuthErrorMessage }) {
               {authErrorMessage  ? `Что пошло не так... ${authErrorMessage}` : ''}
             </span>
           </fieldset>
-          <button className="registr__btn button" type="submit">
-          Войти
-        </button>
+        <button
+            className={`registr__btn button ${!isValid ? 'registr__btn_type_inactive' : ''}`}
+            type="submit"
+            disabled={isDisabledForm}>
+            Войти
+          </button>
         </form>
         <div className="registr__signin">
           <p className="registr__reg-question">Ещё не зарегистрированы?</p>
