@@ -1,5 +1,6 @@
 .body {
   background-color: #FAFAFA;
+  min-height: 100vh;
   }
   
   .page {
@@ -49,7 +50,7 @@
   }
   
   .button:hover {
-    opacity: .6;
+    opacity: 1!important;
     transition: opacity 0.2s linear 0s;
   }
   

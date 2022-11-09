@@ -10,6 +10,10 @@
     margin-bottom: 0px;
     overflow: hidden;
   }
+
+  .movies-card:hover .movies-card__btn_type_close {
+    opacity: .6;
+  }
   
   .movies-card__info-container {
     width: 100%;
@@ -52,17 +56,14 @@
   .movies-card__image-container {
     height: 200px;
     margin-bottom: 18px;
-    
     margin: 0;
-
   }
   .movies-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     color: #fff;
-  }
-  
+  }  
   .movies-card__btn {
     width: 30px;
     height: 30px;
@@ -92,6 +93,9 @@
   @media screen and (max-width: 750px) {
     .movies-card {
       padding-bottom: 12px;
+    }
+    .movies-card .movies-card__btn_type_close {
+      opacity: 1;
     }
   
     .movies-card__info-container {

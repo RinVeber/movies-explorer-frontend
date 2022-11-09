@@ -1,12 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/logo.png';
+import { AppContext } from '../../context/AppContext';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-};
+function Login({ handleLogin, setAuthErrorMessage }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { authErrorMessage, isDisabledForm } = React.useContext(AppContext);
+  const { email, password } = values;
 
-function Login() {
+  React.useEffect(() => {
+    return () => {
+      setAuthErrorMessage(null);
+    };
+  }, [setAuthErrorMessage]);
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+    isValid && handleLogin({ email, password });
+  };
+
   return (
     <section className="registr">
       <div className="registr__container">
@@ -23,14 +40,17 @@ function Login() {
             </label>
             <input
               className="registr__input"
-              value='pochta@yandex.ru'
+              value={email || ''}
+              onChange={handleChange}
+              disabled={isDisabledForm}
               placeholder=""
               type="email"
               name="email"
               autoComplete="on"
+              pattern= "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               required
             />
-            <span className="registr__input-error registr__input_type_error"></span>
+            <span className="registr__input-error registr__input_type_error">{errors.name}</span>
           </fieldset>
           <fieldset className="registr__form-container registr__form-container_type_login">
             <label className="registr__input-label" htmlFor="password">
@@ -39,6 +59,9 @@ function Login() {
             <input
               className="registr__input"
               placeholder=""
+              value={password || ''}
+              onChange={handleChange}
+              disabled={isDisabledForm}
               type="password"
               name="password"
               minLength="8"
@@ -46,10 +69,16 @@ function Login() {
               required
             />
             <span className="registr__input-error"></span>
+            <span className="register__auth-error">
+              {authErrorMessage  ? `Что пошло не так... ${authErrorMessage}` : ''}
+            </span>
           </fieldset>
-          <button className="registr__btn btn" type="submit">
-          Войти
-        </button>
+        <button
+            className={`registr__btn button ${(!isValid) ? 'registr__btn_type_inactive' : ''}`}
+            type="submit"
+            disabled={isDisabledForm}>
+            Войти
+          </button>
         </form>
         <div className="registr__signin">
           <p className="registr__reg-question">Ещё не зарегистрированы?</p>
